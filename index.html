@@ -1,64 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Srivaishnava Dynamic Panchangam Calendar</title>
-  
+
   <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
-  
+
   <link rel="stylesheet" href="css/styles.css" />
 </head>
+
 <body>
 
-<div class="container">
-  
-  <div class="card header-card">
-    <div class="date-display" id="gregorian-date">--</div>
-    <div class="time-display" id="live-time">00:00:00</div>
-    <div class="location-badge" id="location-name">📍 Detecting Location...</div>
+  <div class="container">
+
+    <div class="card header-card">
+      <div class="date-display" id="gregorian-date">--</div>
+      <div class="time-display" id="live-time">00:00:00</div>
+      <div class="location-badge" id="location-name">📍 Detecting Location...</div>
+    </div>
+
+    <div class="card">
+      <h2>📅 Today's Panchangam</h2>
+      <div class="grid">
+        <div class="info-item">
+          <span class="label">Tamil Month</span>
+          <span class="value" id="tamil-month-val">Computing...</span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">Nakshatram (Star)</span>
+          <span class="value" id="nakshatra-val">Computing...</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Tithi (Lunar Day)</span>
+          <span class="value" id="tithi-val">Computing...</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Sunrise / Sunset</span>
+          <span class="value" id="sun-times">-- : --</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🛕 Srivaishnava Events & Updates</h2>
+      <div id="events-container">
+        <p style="color: var(--text-muted);">Loading updates from GitHub Pages...</p>
+      </div>
+    </div>
+
   </div>
 
-  <div class="card">
-  <h2>📅 Today's Panchangam</h2>
-  <div class="grid">
-    <div class="info-item">
-      <span class="label">Tamil Month</span>
-      <span class="value" id="tamil-month-val">Computing...</span>
-    </div>
-    <div class="info-item">
-      <span class="label">Nakshatram (Star)</span>
-      <span class="value" id="nakshatra-val">Computing...</span>
-    </div>
-    <div class="info-item">
-      <span class="label">Tithi (Lunar Day)</span>
-      <span class="value" id="tithi-val">Computing...</span>
-    </div>
-    <div class="info-item">
-      <span class="label">Sunrise / Sunset</span>
-      <span class="value" id="sun-times">-- : --</span>
-    </div>
-  </div>
-</div>
+  <footer>
+    Srivaishnava Sampradaya Digital Calendar Engine
+  </footer>
 
-  <div class="card">
-    <h2>🛕 Srivaishnava Events & Updates</h2>
-    <div id="events-container">
-      <p style="color: var(--text-muted);">Loading updates from GitHub Pages...</p>
-    </div>
-  </div>
-
-</div>
-
-<footer>
-  Srivaishnava Sampradaya Digital Calendar Engine
-</footer>
-
-<script  type="module" src="js/config.js"></script>
-<script type="module" src="js/panchang.js"></script>
-<script  type="module" src="js/storage.js"></script>
-//<script  type="module" src="js/app.js"></script>
-<script  type="module" src="js/app.js"></script>
+  <script type="module" src="js/config.js"></script>
+  <script type="module" src="js/panchang.js"></script>
+  <script type="module" src="js/storage.js"></script>
+  //
+  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/app.js"></script>
 
 </body>
+
 </html>

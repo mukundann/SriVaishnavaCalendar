@@ -1,10 +1,10 @@
-// GitHub JSON Endpoint (Update with your username/repo)
+// GitHub JSON Endpoint
 export const GITHUB_JSON_URL = "https://raw.githubusercontent.com/mukundann/SriVaishnavaCalendar/refs/heads/main/data/dynamic-events.json";
 
 export const DEFAULT_COORDS = { lat: 13.0827, lng: 80.2707 };
 
 // 12 Tamil Months with Tamil Script
- export const TAMIL_MONTHS = [
+export const TAMIL_MONTHS = [
   { en: "Chithirai", ta: "சித்திரை" },
   { en: "Vaikasi", ta: "வைகாசி" },
   { en: "Aani", ta: "ஆனி" },
@@ -15,18 +15,18 @@ export const DEFAULT_COORDS = { lat: 13.0827, lng: 80.2707 };
   { en: "Karthigai", ta: "கார்த்திகை" },
   { en: "Margazhi", ta: "மார்கழி" },
   { en: "Thai", ta: "தை" },
-  { en: "Masi", ta: "மாசி" },
+  { en: "Maasi", ta: "மாசி" },
   { en: "Panguni", ta: "பங்குனி" }
 ];
 
 // 27 Nakshatrams (Bilingual)
- export const NAKSHATRAS = [
+export const NAKSHATRAS = [
   { en: "Ashwini", ta: "அசுவினி" },
   { en: "Bharani", ta: "பரணி" },
   { en: "Krittika", ta: "கார்த்திகை" },
   { en: "Rohini", ta: "ரோகிணி" },
   { en: "Mrigashirsha", ta: "மிருகசீரிடம்" },
-  { en: "Arudra / Thiruvadhirai", ta: "திருவாதிரை" },
+  { en: "Thiruvadhirai / Arudra", ta: "திருவாதிரை" },
   { en: "Punarvasu", ta: "புனர்பூசம்" },
   { en: "Pushya / Poosam", ta: "பூசம்" },
   { en: "Ashlesha / Ayilyam", ta: "ஆயில்யம்" },
@@ -50,9 +50,8 @@ export const DEFAULT_COORDS = { lat: 13.0827, lng: 80.2707 };
   { en: "Revati", ta: "ரேவதி" }
 ];
 
-// js/config.js
-
- export const TITHIS = [
+// 15 Tithis (Bilingual)
+export const TITHIS = [
   { en: "Prathama", ta: "பிரதமை" },
   { en: "Dwitiya", ta: "துவிதியை" },
   { en: "Tritiya", ta: "திருதியை" },
