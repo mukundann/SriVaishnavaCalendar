@@ -1,9 +1,242 @@
 [
   {
-    "id": "ramanuja",
-    "name": "Swami Ramanuja",
+    "id": "periyaperumal",
+    "name": "Periya Perumal (Lord Ranganatha)",
+    "tamil_month": "Panguni",
+    "nakshatram": "Uttara Phalguni (Uthiram)",
+    "lineage": "Moola Purusha",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "periyapiratti",
+    "name": "Periya Piratti (Sri Mahalakshmi)",
+    "tamil_month": "Aippasi",
+    "nakshatram": "Pooradam (Purva Ashadha)",
+    "lineage": "Moola Purusha",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "senaimudhalvar",
+    "name": "Senai Mudhalvar (Visvaksena)",
+    "tamil_month": "Aippasi",
+    "nakshatram": "Pooradam (Purva Ashadha)",
+    "lineage": "Moola Purusha",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "nammalwar",
+    "name": "Swami Nammazhwar",
+    "tamil_month": "Vaikasi",
+    "nakshatram": "Visakam",
+    "lineage": "Azhwar",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/index.php/2020/04/nammazhwar-vazhi-thirunamam-english/"
+  },
+  {
+    "id": "madhurakavialwar",
+    "name": "Swami Madhurakavi Azhwar",
     "tamil_month": "Chithirai",
-    "nakshatram": "Thiruvadhirai",
+    "nakshatram": "Chithirai",
+    "lineage": "Azhwar",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/index.php/2020/04/madhurakavi-azhwar-vazhi-thirunamam-english/"
+  },
+  {
+    "id": "poigaiazhwar",
+    "name": "Poigai Azhwar",
+    "tamil_month": "Aippasi",
+    "nakshatram": "Thiruvonam (Shravana)",
+    "lineage": "Mudhal Azhwars",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "bhootathazhwar",
+    "name": "Bhootath Azhwar",
+    "tamil_month": "Aippasi",
+    "nakshatram": "Avittam (Dhanishta)",
+    "lineage": "Mudhal Azhwars",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "peyazhwar",
+    "name": "Pey Azhwar",
+    "tamil_month": "Aippasi",
+    "nakshatram": "Sadhayam (Shatabhisha)",
+    "lineage": "Mudhal Azhwars",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "thirumalisaiazhwar",
+    "name": "Thirumalisai Azhwar",
+    "tamil_month": "Thai",
+    "nakshatram": "Magha (Makam)",
+    "lineage": "Azhwar",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "kulasekarazhwar",
+    "name": "Kulasekara Azhwar",
+    "tamil_month": "Masi",
+    "nakshatram": "Punarvasu",
+    "lineage": "Azhwar",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "periyazhwar",
+    "name": "Periyazhwar",
+    "tamil_month": "Aani",
+    "nakshatram": "Swati",
+    "lineage": "Azhwar",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "andal",
+    "name": "Sri Andal",
+    "tamil_month": "Aadi",
+    "nakshatram": "Pooram (Purva Phalguni)",
+    "lineage": "Azhwar",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "thondaradipodialzwar",
+    "name": "Thondaradipodi Azhwar",
+    "tamil_month": "Margazhi",
+    "nakshatram": "Kettai (Jyeshtha)",
+    "lineage": "Azhwar",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "thiruppanazhwar",
+    "name": "Thiruppana Azhwar",
+    "tamil_month": "Karthigai",
+    "nakshatram": "Rohini",
+    "lineage": "Azhwar",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "thirumangaialhwar",
+    "name": "Thirumangai Azhwar",
+    "tamil_month": "Karthigai",
+    "nakshatram": "Krittika",
+    "lineage": "Azhwar",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "nathamunigal",
+    "name": "Swami Nathamunigal",
+    "tamil_month": "Aani",
+    "nakshatram": "Anuradha (Anusham)",
+    "lineage": "Oran Vazhi Acharya",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "uyyakkoondar",
+    "name": "Swami Uyyakkondar (Pundarikaksha)",
+    "tamil_month": "Chithirai",
+    "nakshatram": "Karthigai",
+    "lineage": "Oran Vazhi Acharya",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "manakkalnambi",
+    "name": "Swami Manakkal Nambi",
+    "tamil_month": "Masi",
+    "nakshatram": "Magha (Makam)",
+    "lineage": "Oran Vazhi Acharya",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "alavandar",
+    "name": "Swami Alavandar (Yamunacharya)",
+    "tamil_month": "Aadi",
+    "nakshatram": "Uttara Ashadha (Uthiradam)",
+    "lineage": "Oran Vazhi Acharya",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "periyanambi",
+    "name": "Swami Periya Nambi",
+    "tamil_month": "Margazhi",
+    "nakshatram": "Kettai (Jyeshtha)",
+    "lineage": "Oran Vazhi Acharya",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "ramanuja",
+    "name": "Swami Ramanuja (Emperumanar)",
+    "tamil_month": "Chithirai",
+    "nakshatram": "Thiruvadhirai (Arudra)",
+    "lineage": "Oran Vazhi Acharya",
     "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/index.php/2020/04/emperumanar-vazhi-thirunamam-english/"
+  },
+  {
+    "id": "embar",
+    "name": "Swami Embar",
+    "tamil_month": "Thai",
+    "nakshatram": "Punarpusam",
+    "lineage": "Acharya",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "parasarabhattar",
+    "name": "Swami Parasara Bhattar",
+    "tamil_month": "Vaikasi",
+    "nakshatram": "Anuradha (Anusham)",
+    "lineage": "Acharya",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "nanjiyar",
+    "name": "Swami Nanjiyar",
+    "tamil_month": "Karthigai",
+    "nakshatram": "Uthiram (Uttara Phalguni)",
+    "lineage": "Oran Vazhi Acharya",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "nampillai",
+    "name": "Swami Nampillai",
+    "tamil_month": "Karthigai",
+    "nakshatram": "Karthigai",
+    "lineage": "Oran Vazhi Acharya",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "vadakkuththiruvidhipillai",
+    "name": "Swami Vadakkuth Thiruvidhipillai",
+    "tamil_month": "Aippasi",
+    "nakshatram": "Swati",
+    "lineage": "Oran Vazhi Acharya",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "pillailokacharya",
+    "name": "Swami Pillai Lokacharya",
+    "tamil_month": "Aippasi",
+    "nakshatram": "Thiruvonam (Shravana)",
+    "lineage": "Oran Vazhi Acharya",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "vedantadesikan",
+    "name": "Swami Vedanta Desikan",
+    "tamil_month": "Purattasi",
+    "nakshatram": "Thiruvonam (Shravana)",
+    "lineage": "Acharya",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/index.php/2020/09/swamy-desikan-vazhi-thirunamam-english/"
+  },
+  {
+    "id": "thiruvaimozhipillai",
+    "name": "Swami Thiruvaimozhi Pillai",
+    "tamil_month": "Vaikasi",
+    "nakshatram": "Visakam",
+    "lineage": "Oran Vazhi Acharya",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
+  },
+  {
+    "id": "manavalamamunigal",
+    "name": "Swami Manavala Mamunigal",
+    "tamil_month": "Aippasi",
+    "nakshatram": "Mulam (Mula)",
+    "lineage": "Oran Vazhi Acharya",
+    "vazhi_thirunamam_url": "https://divyaprabandham.koyil.org/"
   }
 ]
