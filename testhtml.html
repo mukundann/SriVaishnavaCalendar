@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Srivaishnava Calendar</title>
+  <style>
+    :root {
+      --primary: #8b0000;
+      --gold: #d4af37;
+      --bg: #fffbf0;
+      --card-bg: #ffffff;
+      --text: #222222;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .calendar-card {
+      background: var(--card-bg);
+      border: 3px solid var(--gold);
+      border-radius: 12px;
+      max-width: 480px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .header {
+      text-align: center;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      margin: 0;
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+
+    .live-time {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--primary);
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .date-display {
+      text-align: center;
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .panchangam-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .info-box {
+      background: #fdf8eb;
+      padding: 10px;
+      border-radius: 6px;
+      border-left: 4px solid var(--gold);
+    }
+
+    .info-box label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: #777;
+      margin-bottom: 2px;
+    }
+
+    .info-box span {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .event-section {
+      background: #fff5f5;
+      border: 1px solid #f5c6cb;
+      border-radius: 6px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .event-section h3 {
+      margin: 0 0 6px 0;
+      color: var(--primary);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .event-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #800000;
+    }
+
+    .location-tag {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calendar-card">
+    <div class="header">
+      <h1>ஸ்ரீவைஷ்ணவ பஞ்சாங்கம்</h1>
+      <div style="font-size: 0.85rem; color: #666;">Srivaishnava Calendar</div>
+    </div>
+
+    <div class="live-time" id="clock">00:00:00 AM</div>
+    <div class="date-display" id="gregorianDate">Loading Date...</div>
+
+    <div class="panchangam-grid">
+      <div class="info-box">
+        <label>Tithi (திதி)</label>
+        <span id="tithi">Sukla Ekadasi</span>
+      </div>
+      <div class="info-box">
+        <label>Nakshatram (நட்சத்திரம்)</label>
+        <span id="nakshatram">Thiruvonam</span>
+      </div>
+      <div class="info-box">
+        <label>Sunrise (சூரியோதயம்)</label>
+        <span id="sunrise">06:12 AM</span>
+      </div>
+      <div class="info-box">
+        <label>Sunset (சூரிய அஸ்தமனம்)</label>
+        <span id="sunset">06:45 PM</span>
+      </div>
+    </div>
+
+    <div class="event-section">
+      <h3>Special Event / Tirunakshatram</h3>
+      <div class="event-title" id="event">Pavithrotsavam</div>
+    </div>
+
+    <div class="location-tag" id="locationStatus">Fetching location...</div>
+  </div>
+
+  <script>
+    // 1. Live Clock Engine
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('clock').innerText = now.toLocaleTimeString();
+      document.getElementById('gregorianDate').innerText = now.toLocaleDateString(undefined, {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 2. Geolocation & Panchang Integration
+    function fetchPanchangam(lat, lon) {
+      document.getElementById('locationStatus').innerText = `Location: ${lat.toFixed(2)}°, ${lon.toFixed(2)}°`;
+      
+      // OPTIONAL: Call a Panchang API here passing lat & lon.
+      // fetch(`https://api.example.com/panchang?lat=${lat}&lng=${lon}`)
+      //   .then(res => res.json())
+      //   .then(data => { ... update DOM elements ... });
+    }
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            fetchPanchangam(position.coords.latitude, position.coords.longitude);
+          },
+          (error) => {
+            document.getElementById('locationStatus').innerText = "Location access denied. Displaying default panchangam.";
+          }
+        );
+      } else {
+        document.getElementById('locationStatus').innerText = "Geolocation not supported by browser.";
+      }
+    }
+
+    getLocation();
+  </script>
+</body>
+</html>
