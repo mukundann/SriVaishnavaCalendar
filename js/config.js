@@ -1,5 +1,5 @@
 // GitHub JSON Endpoint (Update with your username/repo)
-const GITHUB_JSON_URL = "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/data/dynamic-events.json";
+const GITHUB_JSON_URL = "https://github.com/mukundann/SriVaishnavaCalendar/blob/main/data/dynamic-events.json";
 
 const DEFAULT_COORDS = { lat: 13.0827, lng: 80.2707 };
 
