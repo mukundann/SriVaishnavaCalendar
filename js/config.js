@@ -1,10 +1,10 @@
 // GitHub JSON Endpoint (Update with your username/repo)
-const GITHUB_JSON_URL = "https://github.com/mukundann/SriVaishnavaCalendar/blob/main/data/dynamic-events.json";
+export const GITHUB_JSON_URL = "https://raw.githubusercontent.com/mukundann/SriVaishnavaCalendar/refs/heads/main/data/dynamic-events.json";
 
-const DEFAULT_COORDS = { lat: 13.0827, lng: 80.2707 };
+export const DEFAULT_COORDS = { lat: 13.0827, lng: 80.2707 };
 
 // 12 Tamil Months with Tamil Script
- const TAMIL_MONTHS = [
+ export const TAMIL_MONTHS = [
   { en: "Chithirai", ta: "சித்திரை" },
   { en: "Vaikasi", ta: "வைகாசி" },
   { en: "Aani", ta: "ஆனி" },
@@ -20,7 +20,7 @@ const DEFAULT_COORDS = { lat: 13.0827, lng: 80.2707 };
 ];
 
 // 27 Nakshatrams (Bilingual)
- const NAKSHATRAS = [
+ export const NAKSHATRAS = [
   { en: "Ashwini", ta: "அசுவினி" },
   { en: "Bharani", ta: "பரணி" },
   { en: "Krittika", ta: "கார்த்திகை" },
@@ -52,7 +52,7 @@ const DEFAULT_COORDS = { lat: 13.0827, lng: 80.2707 };
 
 // js/config.js
 
- const TITHIS = [
+ export const TITHIS = [
   { en: "Prathama", ta: "பிரதமை" },
   { en: "Dwitiya", ta: "துவிதியை" },
   { en: "Tritiya", ta: "திருதியை" },

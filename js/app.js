@@ -1,3 +1,10 @@
+
+import { DEFAULT_COORDS } from './config.js';
+import { calculatePanchangam } from './panchang.js';
+
+import { fetchGitHubEvents } from './storage.js';
+
+
 let userCoords = { ...DEFAULT_COORDS };
 
 // Clock Engine
