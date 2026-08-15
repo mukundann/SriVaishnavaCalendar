@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Srivaishnava Dynamic Panchangam Calendar</title>
+  
+  <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
+  
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --accent: #f59e0b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --highlight: #ec4899;
+    }
+
+    body {
+      margin: 0;
+      padding: 1rem;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.25rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+      border: 1px solid #334155;
+    }
+
+    .header-card {
+      text-align: center;
+      border-top: 4px solid var(--accent);
+    }
+
+    .time-display {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: var(--accent);
+      margin: 0.5rem 0;
+    }
+
+    .date-display {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    .location-badge {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.2rem 0.6rem;
+      background-color: #334155;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: var(--accent);
+      border-bottom: 1px solid #334155;
+      padding-bottom: 0.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .value {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-top: 0.2rem;
+    }
+
+    .event-item {
+      padding: 0.75rem;
+      background: #0f172a;
+      border-left: 3px solid var(--highlight);
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    .event-title {
+      font-weight: bold;
+      color: #f43f5e;
+    }
+
+    .event-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  
+  <div class="card header-card">
+    <div class="date-display" id="gregorian-date">--</div>
+    <div class="time-display" id="live-time">00:00:00</div>
+    <div class="location-badge" id="location-name">📍 Detecting Location...</div>
+  </div>
+
+  <div class="card">
+    <h2>📅 Today's Panchangam</h2>
+    <div class="grid">
+      <div class="info-item">
+        <span class="label">Tithi (Lunar Day)</span>
+        <span class="value" id="tithi-val">Computing...</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Nakshatram (Star)</span>
+        <span class="value" id="nakshatra-val">Computing...</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Sunrise / Sunset</span>
+        <span class="value" id="sun-times">-- : --</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Rahu Kalam</span>
+        <span class="value" id="rahu-time">-- : --</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🛕 Srivaishnava Events & Updates</h2>
+    <div id="events-container">
+      <p style="color: var(--text-muted);">Loading updates from GitHub Pages...</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Srivaishnava Sampradaya Digital Calendar Engine
+</footer>
+
+<script>
+  // JSON Endpoint hosted on your GitHub Pages repo
+  // Replace username/repo with your GitHub details
+  const GITHUB_JSON_URL = "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/data/dynamic-events.json";
+
+  // List of Nakshatram Names
+  const NAKSHATRAS = [
+    "Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashirsha", "Arudra (Thiruvadhirai)",
+    "Punarvasu", "Pushya", "Ashlesha", "Magha", "Purva Phalguni", "Uttara Phalguni",
+    "Hasta", "Chitra", "Swati", "Vishakha", "Anuradha", "Jyeshtha",
+    "Mula", "Purva Ashadha", "Uttara Ashadha", "Shravana (Thiruvonam)", "Dhanishta",
+    "Shatabhisha", "Purva Bhadrapada", "Uttara Bhadrapada", "Revati"
+  ];
+
+  // List of Tithis
+  const TITHIS = [
+    "Pratipada", "Dwitiya", "Tritiya", "Chaturthi", "Panchami", "Shasthi",
+    "Saptami", "Ashtami", "Navami", "Dashami", "Ekadasi", "Dwadasi",
+    "Trayodasi", "Chaturdashi", "Purnima / Amavasya"
+  ];
+
+  let userCoords = { lat: 13.0827, lng: 80.2707 }; // Default: Chennai
+
+  // 1. Clock Engine
+  function updateTime() {
+    const now = new Date();
+    document.getElementById("live-time").innerText = now.toLocaleTimeString();
+    document.getElementById("gregorian-date").innerText = now.toLocaleDateString(undefined, {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+  }
+  setInterval(updateTime, 1000);
+  updateTime();
+
+  // 2. Location Engine
+  function initLocation() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          userCoords.lat = pos.coords.latitude;
+          userCoords.lng = pos.coords.longitude;
+          document.getElementById("location-name").innerText = 
+            `📍 ${userCoords.lat.toFixed(2)}°, ${userCoords.lng.toFixed(2)}°`;
+          calculatePanchangam();
+        },
+        (err) => {
+          document.getElementById("location-name").innerText = "📍 Default Location (Chennai)";
+          calculatePanchangam();
+        }
+      );
+    } else {
+      calculatePanchangam();
+    }
+  }
+
+  // 3. Astronomical Panchangam Calculation
+  function calculatePanchangam() {
+    const now = new Date();
+    const observer = new Astronomy.Observer(userCoords.lat, userCoords.lng, 0);
+
+    // Compute Sun & Moon Longitudes
+    const sunVector = Astronomy.GeoVector(Astronomy.Body.Sun, now, true);
+    const moonVector = Astronomy.GeoVector(Astronomy.Body.Moon, now, true);
+
+    const sunEcl = Astronomy.Ecliptic(sunVector);
+    const moonEcl = Astronomy.Ecliptic(moonVector);
+
+    // Calculate Tithi (Moon angle - Sun angle)
+    let angleDiff = moonEcl.elon - sunEcl.elon;
+    if (angleDiff < 0) angleDiff += 360;
+    
+    const tithiIndex = Math.floor(angleDiff / 12) % 15;
+    const paksha = angleDiff < 180 ? "Shukla Paksha" : "Krishna Paksha";
+    document.getElementById("tithi-val").innerText = `${TITHIS[tithiIndex]} (${paksha})`;
+
+    // Calculate Nakshatra (Nirayana Sidereal Moon angle using approximate Lahiri Ayanamsa ~24 deg)
+    let siderealMoon = (moonEcl.elon - 24.1) % 360;
+    if (siderealMoon < 0) siderealMoon += 360;
+    const nakshatraIndex = Math.floor(siderealMoon / (360 / 27));
+    document.getElementById("nakshatra-val").innerText = NAKSHATRAS[nakshatraIndex];
+
+    // Calculate Sunrise / Sunset
+    const sunrise = Astronomy.SearchRiseSet(Astronomy.Body.Sun, observer, 1, now, 1);
+    const sunset = Astronomy.SearchRiseSet(Astronomy.Body.Sun, observer, -1, now, 1);
+
+    if (sunrise && sunset) {
+      const riseStr = sunrise.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const setStr = sunset.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      document.getElementById("sun-times").innerText = `${riseStr} / ${setStr}`;
+    }
+  }
+
+  // 4. GitHub JSON Dynamic Data Sync Engine
+  async function fetchGitHubEvents() {
+    const container = document.getElementById("events-container");
+    try {
+      // Append cache buster timestamp query
+      const response = await fetch(`${GITHUB_JSON_URL}?v=${Date.now()}`);
+      
+      if (!response.ok) throw new Error("File not found on GitHub");
+
+      const data = await response.json();
+      const todayKey = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+      
+      container.innerHTML = ""; // Clear loader
+
+      // Display Today's Special Event if configured in JSON
+      if (data.events && data.events[todayKey]) {
+        const ev = data.events[todayKey];
+        container.innerHTML += `
+          <div class="event-item">
+            <div class="event-title">✨ ${ev.title}</div>
+            <div class="event-desc">${ev.description}</div>
+          </div>
+        `;
+      }
+
+      // Display Announcements / Pasuram of the day
+      if (data.daily_pasuram) {
+        container.innerHTML += `
+          <div class="event-item" style="border-left-color: var(--accent);">
+            <div class="event-title">📜 Daily Pasuram / Quote</div>
+            <div class="event-desc"><em>"${data.daily_pasuram}"</em></div>
+          </div>
+        `;
+      }
+
+    } catch (error) {
+      console.warn("Could not load dynamic GitHub data:", error);
+      container.innerHTML = `
+        <div class="event-item" style="border-left-color: #64748b;">
+          <div class="event-title">Standard Calendar Mode</div>
+          <div class="event-desc">Configure your repo JSON URL in index.html to show live temple updates.</div>
+        </div>
+      `;
+    }
+  }
+
+  // Init sequence
+  initLocation();
+  fetchGitHubEvents();
+  // Refresh GitHub data every 10 minutes
+  setInterval(fetchGitHubEvents, 600000);
+</script>
+
+</body>
+</html>
