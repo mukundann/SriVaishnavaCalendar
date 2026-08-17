@@ -1,17 +1,18 @@
 name: Auto-Update Daily Panchangam
-
 on:
   schedule:
-    # Runs every day at 00:00 UTC
-    - cron: '0 */2 * * *'
-  workflow_dispatch: # Allows manual triggering from GitHub UI
+    - cron: '0 */2 * * *'   # runs every 2 hours
+  workflow_dispatch:
+
+concurrency:
+  group: panchang-update
+  cancel-in-progress: false
 
 jobs:
   update-data:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -31,6 +32,7 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
-          git add data/dynamic-events.json
+          git add data/todays-panchangam.json
           git commit -m "Auto-update daily panchang JSON [skip ci]" || echo "No changes to commit"
+          git pull --rebase origin main
           git push
