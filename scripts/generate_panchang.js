@@ -82,17 +82,20 @@ function calculatePanchangam(lat, lng, date = new Date()) {
     const sunEcl = Astronomy.Ecliptic(sunVector);
     const moonEcl = Astronomy.Ecliptic(moonVector);
 
+    // 1. Tamil Month
     let siderealSun = (sunEcl.elon - 24.1) % 360;
     if (siderealSun < 0) siderealSun += 360;
     const monthIndex = Math.floor(siderealSun / 30);
     const tamilMonthObj = TAMIL_MONTHS[monthIndex] || TAMIL_MONTHS[0];
     const tamilDate = Math.floor(siderealSun % 30) + 1;
 
+    // 2. Nakshatram
     let siderealMoon = (moonEcl.elon - 24.1) % 360;
     if (siderealMoon < 0) siderealMoon += 360;
     const nakshatraIndex = Math.floor(siderealMoon / (360 / 27));
     const nakshatra = NAKSHATRAS[nakshatraIndex] || NAKSHATRAS[0];
 
+    // 3. Tithi
     let angleDiff = moonEcl.elon - sunEcl.elon;
     if (angleDiff < 0) angleDiff += 360;
     const tithiIndex = Math.floor(angleDiff / 12) % 15;
@@ -104,13 +107,29 @@ function calculatePanchangam(lat, lng, date = new Date()) {
     }
     const fullTithiStr = `${paksha} ${tithiName}`;
 
-    // Sunrise / Sunset calculations
-    const sunriseObj = Astronomy.SearchRiseSet(Astronomy.Body.Sun, observer, 1, now, 1);
-    const sunsetObj = Astronomy.SearchRiseSet(Astronomy.Body.Sun, observer, -1, now, 1);
+    // 4. Sunrise and Sunset (Corrected Logic)
+    // Start search from local midnight by resetting hours relative to local target
+    const startOfDay = new Date(date);
+    startOfDay.setHours(0, 0, 0, 0);
+    const searchStart = Astronomy.MakeTime(startOfDay);
+
+    // Direction +1 with limit 1 day finds next upcoming event from start of day
+    const sunriseObj = Astronomy.SearchRiseSet(Astronomy.Body.Sun, observer, +1, searchStart, 1);
+
+    // Find sunset after sunrise
+    const sunsetStart = sunriseObj ? sunriseObj.date : searchStart;
+    const sunsetObj = Astronomy.SearchRiseSet(Astronomy.Body.Sun, observer, -1, Astronomy.MakeTime(sunsetStart), 1);
 
     const formatTime = (timeObj) => {
         if (!timeObj || !timeObj.date) return "--:--";
-        return timeObj.date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata' });
+
+        // Pass targeted time zone (e.g., 'Asia/Kolkata' or 'America/Los_Angeles')
+        return timeObj.date.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+            timeZone: 'America/Los_Angeles' // Adjust to target location time zone
+        });
     };
 
     return {
