@@ -1,0 +1,9 @@
+{
+  "name": "srivaishnava-calendar",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "scripts/generate-panchang.js",
+  "dependencies": {
+    "astronomy-engine": "^2.1.19"
+  }
+}
