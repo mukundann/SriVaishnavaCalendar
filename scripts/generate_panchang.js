@@ -3,9 +3,10 @@
  * Computes daily Panchangam details and outputs to data/dynamic-events.json
  * Compatible with Node.js and GitHub Actions workflows.
  */
-
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import Astronomy from 'astronomy-engine';
 const Astronomy = require('astronomy-engine');
 
 // Import configuration values (using relative paths from scripts/)
@@ -154,6 +155,11 @@ function calculatePanchangam(lat, lng, date = new Date()) {
         updatedAt: new Date().toISOString()
     };
 }
+
+
+// If you need __dirname in an ES module environment:
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Execute Generation & Write to File
 function main() {
