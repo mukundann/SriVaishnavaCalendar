@@ -1,21 +1,14 @@
 /**
  * scripts/generate-panchang.js
- * Computes daily Panchangam details and outputs to data/dynamic-events.json
- * Compatible with Node.js and GitHub Actions workflows.
+ * Computes daily Panchangam details and outputs to data/todays-panchangam.json
  */
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import Astronomy from 'astronomy-engine';
+const fs = require('fs');
+const path = require('path');
 const Astronomy = require('astronomy-engine');
 
-// Import configuration values (using relative paths from scripts/)
+//const DEFAULT_COORDS = { lat: 13.0827, lng: 80.2707 }; -- Chennai
+const DEFAULT_COORDS = { lat: 37.3394, lng: -121.8950 };
 
-const GITHUB_JSON_URL = "https://raw.githubusercontent.com/mukundann/SriVaishnavaCalendar/refs/heads/main/data/dynamic-events.json";
-
-const DEFAULT_COORDS = { lat: 13.0827, lng: 80.2707 };
-
-// 12 Tamil Months with Tamil Script
 const TAMIL_MONTHS = [
     { en: "Chithirai", ta: "சித்திரை" },
     { en: "Vaikasi", ta: "வைகாசி" },
@@ -31,7 +24,6 @@ const TAMIL_MONTHS = [
     { en: "Panguni", ta: "பங்குனி" }
 ];
 
-// 27 Nakshatrams (Bilingual)
 const NAKSHATRAS = [
     { en: "Ashwini", ta: "அசுவினி" },
     { en: "Bharani", ta: "பரணி" },
@@ -62,7 +54,6 @@ const NAKSHATRAS = [
     { en: "Revati", ta: "ரேவதி" }
 ];
 
-// 15 Tithis (Bilingual)
 const TITHIS = [
     { en: "Prathama", ta: "பிரதமை" },
     { en: "Dwitiya", ta: "துவிதியை" },
@@ -81,21 +72,7 @@ const TITHIS = [
     { en: "Purnima", ta: "பௌர்ணமி", amavasya_en: "Amavasya", amavasya_ta: "அமாவாசை" }
 ];
 
-
-
-/**
- * Calculates local Panchangam parameters for a given date and location.
- * @param {number} lat - Latitude
- * @param {number} lng - Longitude
- * @param {Date} date - JavaScript Date object (defaults to current time)
- * @returns {Object|null} Calculated Panchangam details
- */
 function calculatePanchangam(lat, lng, date = new Date()) {
-    if (typeof Astronomy === 'undefined') {
-        console.error("Astronomy Engine library not loaded.");
-        return null;
-    }
-
     const now = Astronomy.MakeTime(date);
     const observer = new Astronomy.Observer(lat, lng, 0);
 
@@ -105,40 +82,35 @@ function calculatePanchangam(lat, lng, date = new Date()) {
     const sunEcl = Astronomy.Ecliptic(sunVector);
     const moonEcl = Astronomy.Ecliptic(moonVector);
 
-    // 1. Tamil Month Calculation
     let siderealSun = (sunEcl.elon - 24.1) % 360;
     if (siderealSun < 0) siderealSun += 360;
     const monthIndex = Math.floor(siderealSun / 30);
     const tamilMonthObj = TAMIL_MONTHS[monthIndex] || TAMIL_MONTHS[0];
-
-    // Approximate solar date index within the month
     const tamilDate = Math.floor(siderealSun % 30) + 1;
 
-    // 2. Nakshatram Calculation
     let siderealMoon = (moonEcl.elon - 24.1) % 360;
     if (siderealMoon < 0) siderealMoon += 360;
     const nakshatraIndex = Math.floor(siderealMoon / (360 / 27));
     const nakshatra = NAKSHATRAS[nakshatraIndex] || NAKSHATRAS[0];
 
-    // 3. Tithi Calculation
     let angleDiff = moonEcl.elon - sunEcl.elon;
     if (angleDiff < 0) angleDiff += 360;
     const tithiIndex = Math.floor(angleDiff / 12) % 15;
     const paksha = angleDiff < 180 ? "Shukla Paksha" : "Krishna Paksha";
 
-    let tithiName = TITHIS && TITHIS[tithiIndex] ? TITHIS[tithiIndex].en : "Tithi";
+    let tithiName = TITHIS[tithiIndex] ? TITHIS[tithiIndex].en : "Tithi";
     if (tithiIndex === 14 && paksha === "Krishna Paksha") {
         tithiName = TITHIS[tithiIndex].amavasya_en || "Amavasya";
     }
     const fullTithiStr = `${paksha} ${tithiName}`;
 
-    // 4. Sunrise and Sunset times
-    const sunriseObj = Astronomy.SearchRiseSet(Astronomy.Body.Sun, observer, +1, now, 1);
+    // Sunrise / Sunset calculations
+    const sunriseObj = Astronomy.SearchRiseSet(Astronomy.Body.Sun, observer, 1, now, 1);
     const sunsetObj = Astronomy.SearchRiseSet(Astronomy.Body.Sun, observer, -1, now, 1);
 
     const formatTime = (timeObj) => {
         if (!timeObj || !timeObj.date) return "--:--";
-        return timeObj.date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+        return timeObj.date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata' });
     };
 
     return {
@@ -156,14 +128,8 @@ function calculatePanchangam(lat, lng, date = new Date()) {
     };
 }
 
-
-// If you need __dirname in an ES module environment:
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Execute Generation & Write to File
 function main() {
-    console.log(`Generating Panchangam data for default coordinates (${DEFAULT_COORDS.lat}, ${DEFAULT_COORDS.lng})...`);
+    console.log(`Generating Panchangam data for coordinates (${DEFAULT_COORDS.lat}, ${DEFAULT_COORDS.lng})...`);
     const panchangData = calculatePanchangam(DEFAULT_COORDS.lat, DEFAULT_COORDS.lng, new Date());
 
     const outputDir = path.join(__dirname, '../data');
@@ -174,8 +140,7 @@ function main() {
     const outputPath = path.join(outputDir, 'todays-panchangam.json');
     fs.writeFileSync(outputPath, JSON.stringify(panchangData, null, 2), 'utf-8');
 
-    console.log(`Successfully generated and saved to: ${outputPath}`);
-    console.log(JSON.stringify(panchangData, null, 2));
+    console.log(`Successfully saved to: ${outputPath}`);
 }
 
 main();
