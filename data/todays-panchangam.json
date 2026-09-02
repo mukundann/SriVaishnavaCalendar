@@ -1,13 +1,13 @@
 {
-  "date": "2026-09-01",
+  "date": "2026-09-02",
   "tamilMonth": "Avani",
   "tamilMonthTa": "ஆவணி",
   "tamilDate": 16,
   "nakshatram": "Bharani",
   "nakshatramTa": "பரணி",
-  "tithi": "Krishna Paksha Panchami",
-  "sunrise": "06:38 AM",
-  "sunset": "07:36 PM",
+  "tithi": "Krishna Paksha Shasthi",
+  "sunrise": "06:39 AM",
+  "sunset": "07:34 PM",
   "location": "Lat: 37.34, Lng: -121.89",
-  "updatedAt": "2026-09-01T22:14:05.212Z"
+  "updatedAt": "2026-09-02T02:10:10.084Z"
 }
