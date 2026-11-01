@@ -1,13 +1,13 @@
 {
-  "date": "2026-10-31",
+  "date": "2026-11-01",
   "tamilMonth": "Aippasi",
   "tamilMonthTa": "ஐப்பசி",
   "tamilDate": 15,
-  "nakshatram": "Punarvasu",
-  "nakshatramTa": "புனர்பூசம்",
+  "nakshatram": "Pushya / Poosam",
+  "nakshatramTa": "பூசம்",
   "tithi": "Krishna Paksha Saptami",
-  "sunrise": "07:31 AM",
-  "sunset": "06:10 PM",
+  "sunrise": "06:32 AM",
+  "sunset": "05:09 PM",
   "location": "Lat: 37.34, Lng: -121.89",
-  "updatedAt": "2026-10-31T22:56:34.613Z"
+  "updatedAt": "2026-11-01T03:32:02.297Z"
 }
